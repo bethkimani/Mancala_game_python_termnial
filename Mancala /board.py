@@ -1,5 +1,11 @@
 # display_board/display_board.py
 
+import random
+
+# Mancala Game Implementation
+
+binAmount = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
+
 def display_board():
     print("+----+----+----+----+----+----+----+----+")
     print("|    |" + str(binAmount[12]).rjust(2) + "    |" + str(binAmount[11]).rjust(2) + " |" + str(binAmount[10]).rjust(2) +
