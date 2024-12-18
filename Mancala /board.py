@@ -1,8 +1,15 @@
 # display_board/display_board.py
 
-def display_board(board):
-    print("\nBoard State:")
-    print(f"Player 2 Store: {board[13]}")
-    print("  " + " ".join(map(str, board[12:6:-1])))  # Player 2's pits (reverse order)
-    print("  " + " ".join(map(str, board[:6])))       # Player 1's pits (forward order)
-    print(f"Player 1 Store: {board[6]}\n")
+def display_board():
+    print("+----+----+----+----+----+----+----+----+")
+    print("|    |" + str(binAmount[12]).rjust(2) + "    |" + str(binAmount[11]).rjust(2) + " |" + str(binAmount[10]).rjust(2) +
+          "  | " + str(binAmount[9]).rjust(2) + " |" + str(binAmount[8]).rjust(2) + " | " + str(binAmount[7]).rjust(2) + "   |    |")
+    print("|" + str(binAmount[13]).rjust(2) + "   |----+----+----+----+----+-----|" + str(binAmount[6]).rjust(2) + " |")
+    print("|    |  " + str(binAmount[0]).rjust(2) + " | " + str(binAmount[1]).rjust(2) + "  | " + str(binAmount[2]).rjust(2) +
+          "   | " + str(binAmou
+
+
+nt[3]).rjust(2) + "  | " + str(binAmount[4]).rjust(2) + " |" + str(binAmount[5]).rjust(2) + "   |    |")
+    print("+----+----+----+----+----+----+----+----+")
+    print("        f     e     d     c     b     a")
+    print("")
