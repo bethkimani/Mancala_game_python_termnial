@@ -1,10 +1,6 @@
 # board_setup/initialize_board.py
+import random
 
-def initialize_board():
-    board = {
-        'player_1_pits': [4] * 6,
-        'player_1_mancala': 0,
-        'player_2_pits': [4] * 6,
-        'player_2_mancala': 0
-    }
-    return board
+# Mancala Game Implementation
+
+binAmount = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
