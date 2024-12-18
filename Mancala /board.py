@@ -2,6 +2,7 @@
 
 import random
 
+from AlternatePlayerTurn import check_game_over
 # Mancala Game Implementation
 
 
@@ -20,7 +21,7 @@ def display_board():
     print("")
 def distribute_stones(chosenBin, playerOne):
     global binAmount
-    giveawayPile = binAmount[chosenBin]
+    giveawayPigit pull origin mainle = binAmount[chosenBin]
     
     if giveawayPile == 0:
         return -1  # Invalid move, chosen bin is empty
@@ -53,3 +54,70 @@ def distribute_stones(chosenBin, playerOne):
         binAmount[12 - lastRecipient] = 0
     
     return lastRecipient
+    def check_game_over():
+    sideOne = sum(binAmount[0:6])
+    sideTwo = sum(binAmount[7:13])
+    return sideOne == 0 or sideTwo == 0
+
+def get_computer_move():
+    # Computer selects the first non-empty bin
+    for i in range(6, 13):
+        if binAmount[i] > 0:
+            return i
+    return -1  # No valid move
+
+def main():
+    playing = True
+    playerOne = True
+    while playing:
+        display_board()
+        if playerOne:
+            message = "Player One's turn (Human)..."
+            print(message)
+            userInput = input("Enter a letter (a-f) to choose a bin or 'q' to Quit: ")
+            if userInput == 'q':
+                playing = False
+                continue
+            chosenBin = {'a': 5, 'b': 4, 'c': 3, 'd': 2, 'e': 1, 'f': 0}.get(userInput, -2)
+        else:
+            message = "Player Two's turn (Computer)..."
+            print(message)
+            chosenBin = get_computer_move()
+            if chosenBin == -1:
+                print("No valid moves for the computer. Skipping turn.")
+                playerOne = not playerOne
+                continue
+
+        if chosenBin == -2:
+            print("Invalid input. Try again.")
+            continue
+        
+        lastRecipient = distribute_stones(chosenBin, playerOne)
+        if lastRecipient == -1:
+            print("You must choose a non-empty bin.")
+            continue
+
+        if check_game_over():
+            playing = False
+            if playerOne:
+                binAmount[6] += sum(binAmount[0:6])
+                for k in range(6):
+                    binAmount[k] = 0
+            else:
+                binAmount[13] += sum(binAmount[7:13])
+                for k in range(7, 13):
+                    binAmount[k] = 0
+
+            display_board()
+            print("The game is over!")
+            if binAmount[13] > binAmount[6]:
+                print("Player Two has won the game!")
+            elif binAmount[6] > binAmount[13]:
+                print("Player One has won the game!")
+            else:
+                print("The game ended in a tie!")
+        else:
+            playerOne = not playerOne  # Switch players
+
+if __name__ == "__main__":
+    main()
