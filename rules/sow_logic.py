@@ -1,20 +1,35 @@
-def sow_stones(pit, board, player):
-    stones = board[pit]
-    board[pit] = 0  
-    current_pit = pit
-    while stones > 0:
-        current_pit = (current_pit + 1) % len(board)
-        if (player == 1 and current_pit == 13) or (player == 2 and current_pit == 6):
-            continue  
-        board[current_pit] += 1
-        stones -= 1
+def distribute_stones(chosenBin, playerOne):
+    global binAmount
+    giveawayPile = binAmount[chosenBin]
     
-   
-    if board[current_pit] == 1 and current_pit in (range(0, 6) if player == 1 else range(7, 13)):
-        opponent_pit = 12 - current_pit 
-        if board[opponent_pit] > 0:
-            board[6 if player == 1 else 13] += board[current_pit] + board[opponent_pit]
-            board[current_pit] = 0
-            board[opponent_pit] = 0
+    if giveawayPile == 0:
+        return -1  # Invalid move, chosen bin is empty
 
-    return board
+    binAmount[chosenBin] = 0  # Remove stones from chosen bin
+    recipient = chosenBin + 1
+
+    while giveawayPile > 0:
+        if recipient > 13:  # Wrap around to the start
+            recipient = 0
+        
+        if (playerOne and recipient == 6) or (not playerOne and recipient == 13):
+            recipient += 1
+            if recipient > 13:
+                recipient = 0
+        
+        binAmount[recipient] += 1
+        giveawayPile -= 1
+        recipient += 1
+
+    lastRecipient = recipient - 1
+
+    if playerOne and lastRecipient < 6 and binAmount[lastRecipient] == 1:
+        binAmount[6] += binAmount[lastRecipient] + binAmount[12 - lastRecipient]
+        binAmount[lastRecipient] = 0
+        binAmount[12 - lastRecipient] = 0
+    elif not playerOne and lastRecipient > 6 and lastRecipient < 13 and binAmount[lastRecipient] == 1:
+        binAmount[13] += binAmount[lastRecipient] + binAmount[12 - lastRecipient]
+        binAmount[lastRecipient] = 0
+        binAmount[12 - lastRecipient] = 0
+    
+    return lastRecipient
