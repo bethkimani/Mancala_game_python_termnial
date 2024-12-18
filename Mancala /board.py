@@ -21,7 +21,7 @@ def display_board():
     print("")
 def distribute_stones(chosenBin, playerOne):
     global binAmount
-    giveawayPigit pull origin mainle = binAmount[chosenBin]
+    giveawayPile = binAmount[chosenBin]
     
     if giveawayPile == 0:
         return -1  # Invalid move, chosen bin is empty
