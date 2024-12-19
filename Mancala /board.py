@@ -13,7 +13,7 @@ def display_board():
     """Displays the current board state."""  
     table = [  
         # Player Two's pits and store  
-        [Fore.RED + str(binAmount[13]), Fore.RED + str(binAmount[11]), Fore.RED + str(binAmount[10]),  
+        [Fore.RED + str(binAmount[13]), Fore.RED + str(binAmount[12]), Fore.RED + str(binAmount[11]), Fore.RED + str(binAmount[10]),  
          Fore.RED + str(binAmount[9]), Fore.RED + str(binAmount[8]), Fore.RED + str(binAmount[7]), '   '],  
         [''] * 6,  # Empty row for aesthetics  
         # Player One's pits and store  
@@ -26,9 +26,12 @@ def display_board():
         Fore.RED + "P2 Store", "        ", "        ", "        ", "        ", "        ", "        ",  
         Fore.GREEN + "P1 Store"  
     ]  
-    
+
     # Print the formatted board using tabulate  
     print(tabulate(table, headers=headers, tablefmt="grid", stralign="center"))  
+
+    # Print the labels for the pits directly beneath their respective bins aligned  
+    print("                      f         e            d             c              b            a")  # Adjusted spacing for alignment  
     print("")  
 
 def distribute_stones(chosenBin, playerOne):  
@@ -56,12 +59,12 @@ def distribute_stones(chosenBin, playerOne):
         binAmount[recipient] += 1  
         giveawayPile -= 1  
         
-        # Show added stone message
-        if recipient == 6:  # Player 1's store
-            print(f"Added 1 stone to Player One's store.")
-        elif recipient == 13:  # Player 2's store
-            print(f"Added 1 stone to Player Two's store.")
-        else:
+        # Show added stone message  
+        if recipient == 6:  # Player 1's store  
+            print(f"Added 1 stone to Player One's store.")  
+        elif recipient == 13:  # Player 2's store  
+            print(f"Added 1 stone to Player Two's store.")  
+        else:  
             print(f"Added 1 stone to pit {recipient + 1}.")  
         
         recipient += 1  
